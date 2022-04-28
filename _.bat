@@ -14,6 +14,9 @@ if "%1"=="init" (
 
 REM Use CMake to build the project
 ) else if "%1"=="build" (
+    if exist ".\%BUILD_DIR%\Debug\%APP_NAME%.exe" (
+        del /Q ".\%BUILD_DIR%\Debug\%APP_NAME%.exe"
+    )
     if exist ".\%BUILD_DIR%\" (
         cmake --build ./%BUILD_DIR%/
     ) else (
