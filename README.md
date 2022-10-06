@@ -14,15 +14,17 @@ Directive | Function
 :---: | ---
 `init` | Generate buildsystem files
 `build` | Build project executable
-`run` | Run generated executable (requires APP_NAME to be set in script)
+`run-[executable_name]` | Run generated executable
 `clean` | Delete all generated files
  
 ## Example Usage
  
- > _ init build run
+ > _ init build run-App
  
- > _ clean build run
+ > _ clean build run-App
  
- > _ build run
+ > _ build run-App
  
- > _ run
+ > _ run-App
+
+ > _ run-App_A run-App_B run-App_C
