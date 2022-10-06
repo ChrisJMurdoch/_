@@ -5,43 +5,49 @@
 @echo off
 echo.
 
-set "APP_NAME=Your_CMake_app_name_here"
+SETLOCAL
+
 set "BUILD_DIR=_"
 
+REM Get task argument
+set "task=%1"
+
+REM Extract executable specifier if exists
+set "executable=%task:~4%"
+
 REM Generate project buildsystem
-if "%1"=="init" (
-    cmake -B ./%BUILD_DIR%/
+if "%task%"=="init" (
+    cmake -B ./%BUILD_DIR%/ || (exit /b 1)
 
 REM Use CMake to build the project
-) else if "%1"=="build" (
-    if exist ".\%BUILD_DIR%\Debug\%APP_NAME%.exe" (
-        del /Q ".\%BUILD_DIR%\Debug\%APP_NAME%.exe"
-    )
+) else if "%task%"=="build" (
     if exist ".\%BUILD_DIR%\" (
-        cmake --build ./%BUILD_DIR%/
+        cmake --build ./%BUILD_DIR%/ || (exit /b 1)
     ) else (
         echo No buildsystem found.  Use _ init to generate buildsystem first.
     )
 
 REM Clean all cmake data
-) else if "%1"=="clean" (
+) else if "%task%"=="clean" (
     if exist ".\%BUILD_DIR%\" (
-        rd /S /Q ".\%BUILD_DIR%\"
+        rd /S /Q ".\%BUILD_DIR%\" || (exit /b 1)
     )
     echo cleaned
 
 REM Run the debug executable
-) else if "%1"=="run" (
-    if exist ".\%BUILD_DIR%\Debug\%APP_NAME%.exe" (
-        .\%BUILD_DIR%\Debug\%APP_NAME%.exe
+) else if "%task:~0,3%"=="run" (
+    if exist ".\%BUILD_DIR%\Debug\%executable%.exe" (
+        .\%BUILD_DIR%\Debug\%executable%.exe || (exit /b 1)
     ) else (
-        echo No executable found.  Use _ build to generate executable first.
+        echo Executable '%executable%' found.  Use _ build to generate executable first.
     )
 
 REM Unrecognised task
 ) else (
-    echo Task '%1' not found
+    echo Task '%task%' not recognised
 )
+
+ENDLOCAL
 
 REM Chain up to 9 tasks
 if NOT "%2"=="" (
