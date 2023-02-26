@@ -19,12 +19,12 @@ Directive | Function
  
 ## Example Usage
  
- > _ init build run-App
+ > _ init build run-app
  
- > _ clean build run-App
+ > _ clean build run-app
  
- > _ build run-App
+ > _ build run-app
  
- > _ run-App
+ > _ run-app
 
- > _ run-App_A run-App_B run-App_C
+ > _ run-app_a run-app_b run-app_c
