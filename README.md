@@ -14,7 +14,7 @@ Directive | Function
 :---: | ---
 `init` | Generate build system files
 `build` | Build project executable
-`run-[executable_name]` | Run generated executable
+`run-[exe_name]` | Run generated executable
 `clean` | Delete all generated files
  
 ## Example Usage
